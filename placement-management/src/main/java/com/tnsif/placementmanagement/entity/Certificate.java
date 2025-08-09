@@ -1,5 +1,7 @@
 package com.tnsif.placementmanagement.entity;
+
 import jakarta.persistence.*;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "certificates")
@@ -9,29 +11,33 @@ public class Certificate {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false)
     private String certificateName;
-    private String issueDate;
 
-    @OneToOne
-    @JoinColumn(name = "student_id") // Foreign key to Student
+    @Column(nullable = false)
+    private LocalDate issuedDate;
+
+    @ManyToOne
+    @JoinColumn(name = "student_id")
     private Student student;
 
     public Certificate() {}
 
-    public Certificate(String certificateName, String issueDate, Student student) {
+    public Certificate(String certificateName, LocalDate issuedDate, Student student) {
         this.certificateName = certificateName;
-        this.issueDate = issueDate;
+        this.issuedDate = issuedDate;
         this.student = student;
     }
 
-    // Getters & Setters
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
+
     public String getCertificateName() { return certificateName; }
     public void setCertificateName(String certificateName) { this.certificateName = certificateName; }
-    public String getIssueDate() { return issueDate; }
-    public void setIssueDate(String issueDate) { this.issueDate = issueDate; }
+
+    public LocalDate getIssuedDate() { return issuedDate; }
+    public void setIssuedDate(LocalDate issuedDate) { this.issuedDate = issuedDate; }
+
     public Student getStudent() { return student; }
     public void setStudent(Student student) { this.student = student; }
 }
-
